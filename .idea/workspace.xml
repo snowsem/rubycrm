@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be32f3d8-1963-41a5-92c7-d5d30d7e0c4f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/static.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/stylesheets/static.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/static_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/helpers/static_helper.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/migrate/20160704090704_add_username_to_members.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/controllers/static_controller_test.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rubycrm/.idea/workspace.xml" afterPath="$PROJECT_DIR$/rubycrm/.idea/workspace.xml" />
     </list>
     <ignored path="rubycrm.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -519,7 +512,7 @@
       <workItem from="1467619929144" duration="363000" />
       <workItem from="1467620331967" duration="1005000" />
       <workItem from="1467622099590" duration="2669000" />
-      <workItem from="1467629517285" duration="5314000" />
+      <workItem from="1467629517285" duration="5328000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <created>1467621115145</created>
@@ -532,7 +525,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9351000" />
+    <option name="totallyTimeSpent" value="9365000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
