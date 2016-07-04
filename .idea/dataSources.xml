@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="942708346">
+  <component name="DataSourceManagerImpl" format="xml" hash="4259204108">
     <data-source source="LOCAL" name="Rails rubycrm: production" uuid="f39a03cf-5d55-48f5-953a-329a347efc17">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
@@ -34,7 +34,7 @@
       <imported>true</imported>
       <remarks>$PROJECT_DIR$/config/database.yml</remarks>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://127.0.0.1/rubycrm_development</jdbc-url>
+      <jdbc-url>jdbc:mysql://127.0.0.1/laracrm</jdbc-url>
       <explain-plan-config>
         <provider>com.intellij.database.plan.ExplainPlanProvider.NullExplainPlanProvider</provider>
       </explain-plan-config>
