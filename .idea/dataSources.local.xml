@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails rubycrm: production" uuid="f39a03cf-5d55-48f5-953a-329a347efc17">
+      <user-name>rubycrm</user-name>
+      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddff8dfffdfe8dff3dfe9dff8dfe7dff5dfeedfebdffedfebdfe8dfebdff9dfefdff5dffadfebdff9dff9dffddfe5dff8dfeedf8ddff7df8adf8fdf94</user-password>
+    </data-source>
+    <data-source name="Rails rubycrm: development" uuid="b24c9b47-50c3-4ef1-83da-f925d6f5b55b">
+      <user-name>root</user-name>
+      <user-password>dfdbdfdddfcfdf9bdf98df99</user-password>
+    </data-source>
+    <data-source name="Rails rubycrm: test" uuid="b4c8184d-131d-4bba-8b66-0e50c7565727">
+      <user-name>root</user-name>
+      <user-password>dfdbdfdddfcfdf9bdf98df99</user-password>
+    </data-source>
+  </component>
+</project>
