@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Rubycrm</title>
+    <title><%=t :project_name %> | <%= yield(:title) %></title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
+
+  <div class="container">
+    <% if user_signed_in? %>
+        <%= render template: 'layouts/menu' %>
+    <% else %>
+
+        <% end%>
+
   <p id="notice"><%= notice %></p>
   <p id="notice"><%= alert %></p>
     <%= yield %>
+    <div class="footer">
+      <p>© ООО ЗСС Маяк 2016</p>
+    </div>
+  </div>
+
   </body>
 </html>

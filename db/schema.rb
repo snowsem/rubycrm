@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160704131444) do
+ActiveRecord::Schema.define(version: 20160704090704) do
 
   create_table "address", primary_key: "id_address", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.string   "index_address",   limit: 45
@@ -223,12 +223,14 @@ ActiveRecord::Schema.define(version: 20160704131444) do
     t.string "psColor", limit: 20
   end
 
-  create_table "sexes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "sexes"
-    t.integer  "sex_id"
-    t.string   "sex_name",   default: "", null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+  create_table "sessions", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string  "id",                          null: false
+    t.integer "user_id"
+    t.string  "ip_address",    limit: 45
+    t.text    "user_agent",    limit: 65535
+    t.text    "payload",       limit: 65535, null: false
+    t.integer "last_activity",               null: false
+    t.index ["id"], name: "sessions_id_unique", unique: true, using: :btree
   end
 
   create_table "telephone", primary_key: "IDTelephone", unsigned: true, force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|

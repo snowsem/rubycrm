@@ -1,7 +1,9 @@
+<% provide(:title, 'Счета') %>
 <h1>Счета</h1>
 <% @bills.each do |bill| %>
     <%= bill.BillName %>
     <%= bill.bill_status.try(:BillStatusName) || "Нет" %>
     <%= bill.client.try(:ClientName) || "Нет" %>
+
     <br>
 <% end %>
