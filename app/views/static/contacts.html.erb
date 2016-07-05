@@ -1,1 +1,57 @@
-f
+<div class="row">
+
+  <div class="col-md-2">
+
+
+    <ul class="nav nav-pills nav-stacked">
+
+      <li class="active">
+        <a href="#">
+          <span class="badge pull-right">{{$contacts->count()}}</span>
+          Все
+        </a>
+      </li>
+
+    </ul>
+    <button id="addTrigger" class="btn btn-default btn-sm" value="/contacts/add" title="Добавить контакт" type="submit" aria-label="">Добавить контакт </button>
+  </div>
+  <div class="col-md-10">
+    <div class="columned col-list">
+      <?
+
+            $a = '';
+            $i=0;
+            foreach ($contacts as $contact) {
+                $i++;
+
+                if ($a == mb_substr( $contact->FamilyContact, 0, 1)) {
+      echo '<div class="row"><div class="col-md-1">'.$i.' </div><div class="col-md-10"> <a  href="/contact/'.$contact->IDContact.'" class="grey-list " id="222" href="#222#">'.$contact->FamilyContact.' '.$contact->NameContact.' '.$contact->SoNameContact.'</a></div></div>';
+      } else {
+      $a = mb_substr( $contact->FamilyContact, 0, 1);
+      echo ' <p class="alpp"><span class="alp">'.$a.'</span></p>';
+
+      echo '<div class="row"><div class="col-md-1">'.$i.' </div><div class="col-md-10"> <a  href="/contact/'.$contact->IDContact.'" class="grey-list " id="222" href="#222#">'.$contact->FamilyContact.' '.$contact->NameContact.' '.$contact->SoNameContact.'</a></div></div>';
+
+      }
+
+
+
+
+
+      //$a = mb_substr( $contact->ClientName, 0, 1);
+
+
+
+
+
+
+
+      }
+
+      ?>
+    </div>
+
+
+
+  </div>
+</div>
