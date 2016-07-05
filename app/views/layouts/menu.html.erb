@@ -14,8 +14,20 @@
         <li class="<%= active_class(root_path) %>">
           <%= link_to "Главня", root_path %>
         </li>
+        <li class="<%= active_class(clients_path) %>">
+          <%= link_to "Клиенты", clients_path %>
+        </li>
+        <li class="<%= active_class(contacts_path) %>">
+          <%= link_to "Контакты", contacts_path %>
+        </li>
         <li class="<%= active_class(bills_path) %>">
           <%= link_to "Счета", bills_path %>
+        </li>
+        <li class="<%= active_class(purchase_path) %>">
+          <%= link_to "Эл. Торги", purchase_path %>
+        </li>
+        <li class="<%= active_class(history_path) %>">
+          <%= link_to "История", history_path %>
         </li>
 
         <!--

@@ -4,5 +4,17 @@ class StaticController < ApplicationController
   end
   def member
   end
+  def clients
+    @clients = Client.all
+  end
+  def contacts
+
+  end
+  def purchase
+
+  end
+  def history
+    
+  end
 
 end
