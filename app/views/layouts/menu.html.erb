@@ -14,6 +14,9 @@
         <li class="<%= active_class(root_path) %>">
           <%= link_to "Главня", root_path %>
         </li>
+        <li class="<%= active_class(bills_path) %>">
+          <%= link_to "Счета", bills_path %>
+        </li>
 
         <!--
         <li {!!(Request::is('/')) ? ' class="active"' : '' !!}><a href="/">Главная</a></li>
