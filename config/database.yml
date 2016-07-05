@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: rubycrm_production
-  username: rubycrm
-  password: <%= ENV['RUBYCRM_DATABASE_PASSWORD'] %>
+  database: laracrm
+  username: root
+  password: qwe123
