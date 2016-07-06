@@ -7,7 +7,7 @@
     <ul class="nav nav-pills nav-stacked">
       <li class="active">
         <a href="#">
-          <span class="badge pull-right">{{$purchase->count()}}</span>
+          <span class="badge pull-right"><%= @purchase.length %></span>
           Все
         </a>
       </li>
@@ -31,18 +31,19 @@
       </thead>
 
       <tbody>
-      @foreach ($purchase as $t)
+      <% @purchase.each do |p|%>
+
       <tr>
-        <td>{{$t->purchaseName}}</td>
-        <td><a href="/client/{{$t->contragent->ClientId}}">{{$t->contragent->ClientName}}</a></td>
-        <td>{{$t->purchaseDateStart}}</td>
-        <td>{{$t->purchaseDateEnd}}</td>
-        <td>{{$t->purchaseLink}}</td>
-        <td>{{$t->purchaseNote}}</td>
-        <td><span class="label {{$t->purchase_status->psColor}}">{{$t->purchase_status->psName}}</span></td>
+        <td><%= p.purchaseName %></td>
+        <td><a href="/client/<%= p.client.try(:ClientId) %>"><%= p.client.try(:ClientName) %></a></td>
+        <td><%= p.purchaseDateStart %></td>
+        <td><%= p.purchaseDateEnd %></td>
+        <td><%= p.purchaseLink %></td>
+        <td><%= p.purchaseNote %></td>
+        <td><span class="label <%= p.purchase_status.try(:psColor) %>"><%= p.purchase_status.try(:psName) %></span></td>
       </tr>
 
-      @endforeach
+      <% end%>
 
       </tbody>
     </table>

@@ -8,7 +8,7 @@
 
       <li class="active">
         <a href="#">
-          <span class="badge pull-right">{{$contacts->count()}}</span>
+          <span class="badge pull-right"><%= @contacts.length%></span>
           Все
         </a>
       </li>
@@ -18,38 +18,35 @@
   </div>
   <div class="col-md-10">
     <div class="columned col-list">
-      <?
+      <% a = '' %>
+      <% i = 0 %>
+      <% @contacts.each do |c| %>
+          <% i+=1 %>
+          <% if a == c.FamilyContact[0] %>
+              <div class="row">
+                <div class="col-md-1"><%=i %> </div>
+                <div class="col-md-10">
+                  <a  href="/client/'.$client->ClientId.'" class="grey-list " id="222" href="#222#">
+                    <%= c.FamilyContact %> <%= c.NameContact %> <%= c.SoNameContact %>
+                  </a>
+                </div>
+              </div>
+          <% else %>
+              <% a = c.FamilyContact[0] %>
+              <p class="alpp"><span class="alp"><%=a %></span></p>
+              <div class="row">
+                <div class="col-md-1"><%=i %> </div>
+                <div class="col-md-10">
+                  <a  href="/client/'.$client->ClientId.'" class="grey-list " id="222" href="#222#">
+                    <%= c.FamilyContact %> <%= c.NameContact %> <%= c.SoNameContact %>
 
-            $a = '';
-            $i=0;
-            foreach ($contacts as $contact) {
-                $i++;
+                  </a>
+                </div>
+              </div>
+          <% end %>
 
-                if ($a == mb_substr( $contact->FamilyContact, 0, 1)) {
-      echo '<div class="row"><div class="col-md-1">'.$i.' </div><div class="col-md-10"> <a  href="/contact/'.$contact->IDContact.'" class="grey-list " id="222" href="#222#">'.$contact->FamilyContact.' '.$contact->NameContact.' '.$contact->SoNameContact.'</a></div></div>';
-      } else {
-      $a = mb_substr( $contact->FamilyContact, 0, 1);
-      echo ' <p class="alpp"><span class="alp">'.$a.'</span></p>';
+      <% end %>
 
-      echo '<div class="row"><div class="col-md-1">'.$i.' </div><div class="col-md-10"> <a  href="/contact/'.$contact->IDContact.'" class="grey-list " id="222" href="#222#">'.$contact->FamilyContact.' '.$contact->NameContact.' '.$contact->SoNameContact.'</a></div></div>';
-
-      }
-
-
-
-
-
-      //$a = mb_substr( $contact->ClientName, 0, 1);
-
-
-
-
-
-
-
-      }
-
-      ?>
     </div>
 
 

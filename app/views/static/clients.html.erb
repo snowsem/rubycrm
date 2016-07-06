@@ -21,43 +21,29 @@
   <div class="col-md-10">
 
     <div class="columned col-list">
+      <% a = '' %>
+      <% i = 0 %>
+      <% @clients.each do |c| %>
+          <% i+=1 %>
+          <% if a == c.ClientName[0] %>
+              <div class="row">
+                <div class="col-md-1"><%=i %> </div>
+                <div class="col-md-10">
+                  <a  href="/client/'.$client->ClientId.'" class="grey-list " id="222" href="#222#">
+                    <%= c.ClientName %>
+                  </a>
+                </div>
+              </div>
+              <% else %>
+              <% a = c.ClientName[0] %>
+              <p class="alpp"><span class="alp"><%=a %></span></p>
+              <div class="row"><div class="col-md-1"><%=i %> </div> <div class="col-md-10"> <a  href="/client/'.$client->ClientId.'" class="grey-list " id="222" href="#222#"><%= c.ClientName %></a></div></div>
+              <% end %>
 
-      <?
+      <% end %>
 
-                $a = '';
-                $i=0;
-
-            foreach ($clients as $client) {
-                $i++;
-
-                if ($a == mb_substr( $client->ClientName, 0, 1)) {
-      echo '<div class="row"><div class="col-md-1">'.$i.' </div> <div class="col-md-10"> <a  href="/client/'.$client->ClientId.'" class="grey-list " id="222" href="#222#">'.$client->ClientName.'</a></div></div>';
-      } else {
-
-      $a = mb_substr( $client->ClientName, 0, 1);
-      echo ' <p class="alpp"><span class="alp">'.$a.'</span></p>';
-
-      echo '<div class="row"><div class="col-md-1">'.$i.' </div> <div class="col-md-10"> <a  href="/client/'.$client->ClientId.'" class="grey-list " id="222" href="#222#">'.$client->ClientName.'</a></div></div>';
-
-      }
-
-
-
-
-
-
-      //$a = mb_substr( $client->ClientName, 0, 1);
-
-
-
-
-
-
-
-      }
-
-      ?>
     </div>
+    <%= paginate @clients %>
 
 
 
