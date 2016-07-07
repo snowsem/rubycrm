@@ -5,7 +5,8 @@ class StaticController < ApplicationController
   def member
   end
   def clients
-    @clients = Client.all.order("ClientName ASC").page(params[:page])
+    # @clients = Client.all.order("ClientName ASC").page(params[:page])
+    @clients = Client.all.order("ClientName ASC").all
   end
   def contacts
     @contacts = Contact.all.order("FamilyContact ASC, NameContact ASC, SoNameContact ASC")

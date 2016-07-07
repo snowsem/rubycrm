@@ -1,21 +1,21 @@
 <% provide(:title, 'Клиенты') %>
 <div class="row">
-
   <div class="col-md-2">
-
 
 
     <ul class="nav nav-pills nav-stacked">
 
       <li class="active">
         <a href="#">
-          <span class="badge pull-right"><%= @clients.length%></span>
+          <span class="badge pull-right"><%= @clients.length %></span>
           Все
         </a>
       </li>
 
     </ul>
-    <button id="addTrigger" class="btn btn-default btn-sm" value="/clients/add" title="Добавить контрагента" type="submit" aria-label="">Добавить контрагента </button>
+    <button id="addTrigger" class="btn btn-default btn-sm" value="/clients/add" title="Добавить контрагента" type="submit" aria-label="">Добавить
+      контрагента
+    </button>
 
   </div>
   <div class="col-md-10">
@@ -27,25 +27,28 @@
           <% i+=1 %>
           <% if a == c.ClientName[0] %>
               <div class="row">
-                <div class="col-md-1"><%=i %> </div>
+                <div class="col-md-1"><%= i %> </div>
                 <div class="col-md-10">
-                  <a  href="/client/'.$client->ClientId.'" class="grey-list " id="222" href="#222#">
+                  <a href="/client/<%= c.ClientId %>" class="grey-list " id="222" href="#222#">
                     <%= c.ClientName %>
                   </a>
                 </div>
               </div>
-              <% else %>
+          <% else %>
               <% a = c.ClientName[0] %>
-              <p class="alpp"><span class="alp"><%=a %></span></p>
-              <div class="row"><div class="col-md-1"><%=i %> </div> <div class="col-md-10"> <a  href="/client/'.$client->ClientId.'" class="grey-list " id="222" href="#222#"><%= c.ClientName %></a></div></div>
-              <% end %>
+              <p class="alpp"><span class="alp"><%= a %></span></p>
+              <div class="row">
+                <div class="col-md-1"><%= i %> </div>
+                <div class="col-md-10">
+                  <a href="/client/<%= c.ClientId %>" class="grey-list " id="222" href="#222#"><%= c.ClientName %></a>
+                </div>
+              </div>
+          <% end %>
 
       <% end %>
 
     </div>
-    <%= paginate @clients %>
-
-
+    <!--  paginate @clients %> !-->
 
 
   </div>
