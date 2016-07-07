@@ -135,7 +135,7 @@
           <% @client.contacts.each do |contact| %>
               <li class="work_mp">
                 <span class="forward">
-                  <a href="/contact/{{$t->IDContact}}">
+                  <a href="/contact/<%= contact.try(:IDContact) %>">
                     <%= contact.try(:FamilyContact) %>
                     <%= contact.try(:NameContact) %>
                     <%= contact.try(:SoNameContact) %>

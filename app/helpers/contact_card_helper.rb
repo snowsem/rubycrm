@@ -1,0 +1,2 @@
+module ContactCardHelper
+end

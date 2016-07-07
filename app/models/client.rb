@@ -9,8 +9,8 @@ class Client < ApplicationRecord
   has_many :contacts, class_name: 'Contact', primary_key: 'ClientId', foreign_key: 'IDContragent'
 
   has_many :telephones,-> { where stat: 2 }, class_name: 'Telephone', primary_key: 'ClientId', foreign_key: 'IDEmpl'
-  has_many :emails, class_name: 'Email', primary_key: 'ClientId', foreign_key: 'IDEmplEmail'
-  has_many :links, class_name: 'Link', primary_key: 'ClientId', foreign_key: 'IDEmplLink'
+  has_many :emails,-> { where stat: 2 }, class_name: 'Email', primary_key: 'ClientId', foreign_key: 'IDEmplEmail'
+  has_many :links,-> { where stat: 2 }, class_name: 'Link', primary_key: 'ClientId', foreign_key: 'IDEmplLink'
 
   has_many :addresses, class_name: 'Address', primary_key: 'ClinetID', foreign_key: 'client_address'
 

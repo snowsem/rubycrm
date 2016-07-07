@@ -1,0 +1,200 @@
+<% cname = @contact.FamilyContact+' '+@contact.NameContact+' '+@contact.SoNameContact  %>
+<%provide(:title, cname)%>
+<div class="container">
+
+  <div class="card-name"><h3><span
+      <% if @contact.SexContact == 1%>
+  class="male"
+  <% else%>
+  class="female"
+  <% end%>
+
+                                    ></span> <%=@contact.FamilyContact %> <%=@contact.NameContact %> <%=@contact.SoNameContact %> <small><span class="edit" value="/contact/{{$contact->IDContact}}/edit_name" title="Редактировать ФИО"></span></small></h3></div>
+  <div id="editContactClick" class="row">
+
+
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-6">Телефон: <span class="plus-mid" value="/contact/{{$contact->IDContact}}/add_telephone" title="Добавить телефон"></span></div>
+        <div id="toggle" class="col-md-6">
+          <ul class="list-unstyled">
+            <% @contact.telephones.each do |telephone|%>
+                <li><span class="phone">
+              <%= telephone.try(:AttrTelephone)%>
+              </span>
+                  <span class="label label-default"><%= telephone.try(:DopName)%></span>
+                  <span class="edit" value="/edit_telephone/{{$t->IDTelephone}}" title="Редактировать телефон"></span>
+                  <span value="/remove_telephone/{{$t->IDTelephone}}" class="delete"></span></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">E-mail: <span class="plus-mid" value="/contact/{{$contact->IDContact}}/add_email" title="Добавить e-mail"></span></div>
+        <div id="toggle" class="col-md-6">
+          <ul class="list-unstyled">
+            <% @contact.emails.each do |em|%>
+                <%= p em.AttrEmail%>
+            <% end %>
+            @foreach ($contact->emails as $t)
+            <li><span class="mail">{{ $t->AttrEmail }}</span> <span class="label label-default">{{ $t->DopInfo }}</span>  <span class="edit" value=/edit_email/{{$t->IDEmail}}" title="Редактировать e-mail"></span> <span value="/remove_email/{{$t->IDEmail}}" class="delete"></span></li>
+
+            @endforeach
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">Ссылки: <span class="plus-mid" value="/contact/{{$contact->IDContact}}/add_link" title="Добавить ссылку"></span></div>
+        <div id="toggle" class="col-md-6">
+          <ul class="list-unstyled">
+            <% @contact.links.each do |em|%>
+                <%= p em.AttrLink%>
+            <% end %>
+            @foreach ($contact->links as $t)
+            <?  $h='';
+                            if (strripos($t->AttrLink, '://') === false) {
+            $h = 'http://';
+
+            }  else {
+
+            }
+
+            ?>
+
+            <li><span class="link"><a href="<?=$h?>{{ $t->AttrLink }}" target="_blank"> {{ $t->AttrLink }}</a></span> <span class="label label-default">{{ $t->DopInfo }}</span>  <span class="edit" value="/edit_link/{{$t->IDLink}}" title="Редактировать ссылку"></span> <span value="/remove_link/{{$t->IDLink}}" class="delete"></span></li>
+
+            @endforeach
+          </ul>
+        </div>
+      </div>
+      <div class="separator"></div><h4>Персональные данные<span class="edit" value="/contact/{{$contact->IDContact}}/edit_info" title="Редактировать персональные данные"></span></h4>
+      <div class="row">
+        <div class="col-md-6">Компания:</div>
+        <div class="col-md-6"><p>
+
+
+          <span class="forward"><a href="/client/<%= @contact.client.try(:ClientId) || 's'%>"><%= @contact.client.try(:ClientName) || 's'%></a></span>
+
+        </p>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">Должность:</div>
+        <div class="col-md-6"><p><%= @contact.PostContact %></p></div>
+      </div>
+      <div class="separator"></div>
+      <div class="row">
+        <div class="col-md-6">Примечание:</div>
+        <div class="col-md-6"><p><%= @contact.DopInfo %></p></div>
+      </div>
+      <div class="separator"></div>
+      <div class="row">
+        <div class="col-md-6">Адрес:</div>
+        <div class="col-md-6"><p><%= @contact.AddressCon %></p></div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">Город:</div>
+        <div class="col-md-6"><p><%= @contact.City %></p></div>
+      </div>
+
+      <div class="separator"></div>
+
+      <div class="row">
+        <div class="col-md-6">Дата рождения:</div>
+        <div class="col-md-6"><p><%= @contact.DateDR %></p></div>
+      </div>
+
+    </div>
+
+
+
+    <div class="col-md-6">
+      <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#call" aria-controls="home" role="tab" data-toggle="tab"><span class="headset-mid"></span> Звонки</a></li>
+          <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><span class="folder-mid"></span> Файлы</a></li>
+          <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><span class="bookmark-mid"></span> Дополнительно</a></li>
+          <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><span class="timer-mid"></span> История</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="call">
+            <button class="btn btn-default btn-sm" id="addTrigger" type="submit" aria-label="" value="/call/add/contact/{{$contact->IDContact}}" title="Добавить">Добавить </button>
+            <div class="margin-10px-top"></div>
+            @foreach ($contact->calls as $t)
+            <div class="row">
+
+              <div class="col-md-12">
+                <h5 class="@if (isset($t->call_status->callStatusColor)) {{$t->call_status->callStatusColor}} @endif">@if (isset($t->call_status->callStatusName)) {{$t->call_status->callStatusName}} @endif: {{$t->CallDate}} в {{$t->CallTime}} -   @if (isset($t->user_name->name)) {{$t->user_name->name}} @endif  @if (isset($t->contact_name->IDContact)) <span class="label label-default"> {{ $t->contact_name->FamilyContact.' '.$t->contact_name->NameContact.' '.$t->contact_name->SoNameContact}} </span>  @endif   <span value="/call/edit/contact/{{$t->CallID}}/{{$contact->IDContact}}" title="Редактировать" class="edit "></span> </h5>
+              </div>
+
+            </div>
+            <div class="separator"></div>
+            <div class="">{{$t->CallText}}</div>
+
+            <div class="separator"></div>
+
+
+
+
+
+            @endforeach
+
+          </div>
+          <div role="tabpanel" class="tab-pane" id="profile">...2</div>
+          <div role="tabpanel" class="tab-pane" id="messages">...3</div>
+          <div role="tabpanel" class="tab-pane" id="settings">...4</div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+
+  <!-- Modal -->
+  <div class = "modal false modal" id = "myModal" tabindex = "-1" role = "dialog"
+       aria-labelledby = "myModalLabel" aria-hidden = "true">
+
+    <div class = "modal-dialog">
+      <div class = "modal-content">
+
+        <div class = "modal-header">
+          <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+            ×
+          </button>
+
+          <h4 class = "modal-title" id = "myModalLabel">
+            This Modal title
+          </h4>
+        </div>
+
+        <div class = "modal-body">
+
+        </div>
+
+        <div class = "modal-footer">
+          <button type = "button" class = "btn btn-default" data-dismiss = "modal">
+            Закрыть
+          </button>
+
+          <button type = "button" class = "btn btn-primary" id="Submit">
+            Сохранить
+          </button>
+        </div>
+
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+
+  </div><!-- /.modal -->
+</div> <!-- /container -->
