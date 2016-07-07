@@ -128,9 +128,9 @@
     </div>
     <div class="separator"></div>
     <div class="row">
-      <div class="col-md-6">Контакты:
+      <div class="col-md-5">Контакты:
         <span class="plus-mid" value="/client/{{$client->ClientId}}/add_contact" title="Добавить контакт"></span></div>
-      <div class="col-md-6">
+      <div class="col-md-7">
         <ul class="list-unstyled">
           <% @client.contacts.each do |contact| %>
               <li class="work_mp">
@@ -155,6 +155,16 @@
 
       <span class="plus-mid" value="/client/{{$client->ClientId}}/add_address" title="Добавить адрес"></span>
     </h4>
+    <% @client.addresses.each do |ad|%>
+        <%= ad.try(:comment_address) %>
+        <%= ad.try(:index_address) %>
+        <%= ad.try(:sub_address) %>
+        <%= ad.try(:city_address) %>
+        <%= ad.try(:street_address) %>
+        <%= ad.try(:home_address) %>
+        <%= ad.try(:korp_address) %>
+        <%= ad.try(:kv_address) %>
+        <% end %>
     @foreach ($client->addresses as $t)
 
 
@@ -266,18 +276,18 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($client->bills as $t)
-            <tr style="cursor: pointer" id="addTrigger" value="/bill/edit/{{$t->BillId}}" title="Редактировать счет {{$t->BillName}}">
-              <td>{{$t->BillName}}</td>
-              <td>{{$t->BillDataCreate}}</td>
-              <td>{{$t->BillDatePay}}</td>
-              <td><span class="label {{$t->BillStatusColor}}">{{$t->BillStatusName}}</span></td>
+            <% @client.bills.each do |b|%>
+                <tr style="cursor: pointer" id="addTrigger" value="/bill/edit/{{$t->BillId}}" title="Редактировать счет {{$t->BillName}}">
+                  <td> <%= b.try(:BillName) %></td>
+                  <td> <%= b.try(:BillDataCreate) %></td>
+                  <td><%= b.try(:BillDatePay) %></td>
+                  <td><span class="label <%= b.bill_status.try(:BillStatusColor) || ''%>"><%= b.bill_status.try(:BillStatusName) %></span></td>
 
-            </tr>
-
-            @endforeach
+                </tr>
 
 
+
+                <% end %>
             </tbody>
           </table>
         </div>
@@ -296,18 +306,18 @@
             </tr>
             </thead>
             <tbody>
+            <% @client.purchases.each do |p|%>
 
 
-            @foreach ($client->purchase as $t)
             <tr style="cursor: pointer" id="addTrigger" value="/purchase/edit/{{$t->purchaseId}}" title="Редактировать {{$t->purchaseName}}">
-              <td>{{$t->purchaseName}}</td>
-              <td>{{$t->purchaseDateStart}}</td>
-              <td><span class="label {{$t->psColor}}">{{$t->psName}}</span></td>
+              <td><%= p.try(:purchaseName)%></td>
+              <td><%= p.try(:purchaseDateStart)%></td>
+              <td><span class="label <%= p.purchase_status.try(:psColor)%>"><%= p.purchase_status.try(:psName)%></span></td>
 
 
             </tr>
 
-            @endforeach
+            <% end %>
 
 
             </tbody>

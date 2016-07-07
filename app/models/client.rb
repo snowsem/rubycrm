@@ -12,6 +12,8 @@ class Client < ApplicationRecord
   has_many :emails, class_name: 'Email', primary_key: 'ClientId', foreign_key: 'IDEmplEmail'
   has_many :links, class_name: 'Link', primary_key: 'ClientId', foreign_key: 'IDEmplLink'
 
-  has_many :bills, :class_name => 'Bill', :foreign_key => 'ClientId', primary_key: 'BillId'
+  has_many :addresses, class_name: 'Address', primary_key: 'ClinetID', foreign_key: 'client_address'
 
+  has_many :bills,->{where arel_table[:BillStatus].not_eq(0)}, :class_name => 'Bill', :foreign_key => 'BillContragentId', primary_key: 'ClientId'
+  has_many :purchases, class_name: 'Purchase', primary_key: 'ClientId', foreign_key: 'purchaseContragent'
 end
