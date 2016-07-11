@@ -16,6 +16,7 @@ class Client < ApplicationRecord
 
   has_many :bills,->{where arel_table[:BillStatus].not_eq(0)}, :class_name => 'Bill', :foreign_key => 'BillContragentId', primary_key: 'ClientId'
   has_many :purchases, class_name: 'Purchase', primary_key: 'ClientId', foreign_key: 'purchaseContragent'
+  has_many :calls, class_name: 'Call', primary_key: 'ClientId',foreign_key: 'CallContragent', through: :contacts
   
 
 end

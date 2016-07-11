@@ -3,7 +3,7 @@ class ClientCardController < ApplicationController
   def index
   end
   def get_id
-    @client = Client.find(params[:id])
+    @client = Client.includes(calls: [:call_status, :contact]).find(params[:id])
   end
 
 end

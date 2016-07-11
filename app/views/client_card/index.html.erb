@@ -224,28 +224,32 @@
         <div role="tabpanel" class="tab-pane active" id="call">
           <button class="btn btn-default btn-sm" id="addTrigger" type="submit" aria-label="" value="/call/add/client/{{$client->ClientId}}" title="Добавить">Добавить</button>
           <div class="margin-10px-top"></div>
-          @foreach ($client->calls as $t)
+          <% @client.calls.each do |call|%>
+              <%= %>
           <div class="row">
 
             <div class="col-md-12">
-              <h5 class="@if (isset($t->call_status->callStatusColor)) {{$t->call_status->callStatusColor}} @endif">@if
-                (isset($t->call_status->callStatusName)) {{$t->call_status->callStatusName}} @endif: {{$t->CallDate}} в
-                {{$t->CallTime}} - @if (isset($t->user_name->name)) {{$t->user_name->name}} @endif @if
-                (isset($t->contact_name->IDContact))
-                <span class="label label-default"> {{ $t->contact_name->FamilyContact.' '.$t->contact_name->NameContact.' '.$t->contact_name->SoNameContact}} </span>
-                @endif
+              <h5 class="<%= call.call_status.try(:callStatusColor)%>">
+                <%= %>
+
+
+                <%= call.call_status.try(:callStatusName)%>: <%= call.CallDate%> в
+                <%= call.CallTime%> - usr @if
+
+                <span class="label label-default"> <%= call.contact.try(:FamilyContact)%> <%= call.contact.try(:NameContact)%> <%= call.contact.try(:SoNameContact)%> </span>
+
                 <span value="/call/edit/client/{{$t->CallID}}/{{$client->ClientId}}" title="Редактировать" class="edit "></span>
               </h5>
             </div>
 
           </div>
           <div class="separator"></div>
-          <div class="">{{$t->CallText}}</div>
+          <div class=""><%= call.try(:CallText)%></div>
 
           <div class="separator"></div>
 
 
-          @endforeach
+              <% end %>
 
 
         </div>
