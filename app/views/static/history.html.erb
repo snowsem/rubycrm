@@ -3,24 +3,24 @@
 
   <div class="col-md-2">
 
-    {{date("Y-m-d")}}
+    <%= Time.now.strftime("%Y-%m-%d")%>
 
     <ul class="nav nav-pills nav-stacked">
       <li class="active">
         <a href="#">
-          <span class="badge pull-right">{{count($call)}}</span>
+          <span class="badge pull-right"><%= @all_history.length%></span>
           Все
         </a>
       </li>
       <li >
         <a href="#">
-          <span class="badge pull-right">{{count($today)}}</span>
+          <span class="badge pull-right"><%= @today_history.length%></span>
           Сегодня
         </a>
       </li>
       <li >
         <a href="#">
-          <span class="badge pull-right">{{count($lastday)}}</span>
+          <span class="badge pull-right"><%= @lastday_history.length%></span>
           Вчера
         </a>
       </li>
@@ -44,25 +44,24 @@
       </tr>
       </thead>
       <tbody>
-      @foreach ($today as $t)
-      <tr>
-        <th>@if (isset($t->name)) {{$t->name}} @endif</th>
-        <th class="@if (isset($t->callStatusColor)) {{$t->callStatusColor}} @endif">@if (isset($t->callStatusName)) {{$t->callStatusName}} @endif</th>
-        <th> {{$t->CallDate}}</th>
-        <th>{{$t->CallTime}} </th>
+      <% @today_history.each do |h|%>
 
-        <th> @if (isset($t->IDContact))
-          <a href="/contact/{{$t->IDContact}}">{{ $t->FamilyContact.' '.$t->NameContact.' '.$t->SoNameContact}}</a>
-          @elseif (isset($t->ClientName))
-          <a href="/client/{{$t->ClientId}}"> {{$t->ClientName}}</a>
+          <tr>
+            <th>@if (isset($t->name)) {{$t->name}} @endif</th>
+            <th class="<%= h.call_status.try(:callStatusColor)%>"><%= h.call_status.try(:callStatusName)%></th>
+            <th> <%= h.CallDate%></th>
+            <th><%= h.CallTime%> </th>
+
+            <th> <% if h.contact %>
+                  <a href="/contact/<%=h.contact.try(:IDContact)%>"><%= h.contact.try(:FamilyContact) %> <%= h.contact.try(:NameContact) %> <%= h.contact.try(:SoNameContact) %></a>
+              <% else%>
+                  <a href="/client/<%= h.client.try(:ClientId)%>"> <%= h.client.ClientName %></a>
+              <% end %>
+
+              </tr>
+      <% end%>
 
 
-          @endif
-
-      </tr>
-
-
-      @endforeach
 
       </tbody>
     </table>
@@ -80,25 +79,24 @@
       </tr>
       </thead>
       <tbody>
-      @foreach ($lastday as $t)
-      <tr>
-        <th>@if (isset($t->name)) {{$t->name}} @endif</th>
-        <th class="@if (isset($t->callStatusColor)) {{$t->callStatusColor}} @endif">@if (isset($t->callStatusName)) {{$t->callStatusName}} @endif</th>
-        <th> {{$t->CallDate}}</th>
-        <th>{{$t->CallTime}} </th>
+      <% @lastday_history.each do |h|%>
 
-        <th> @if (isset($t->IDContact))
-          <a href="/contact/{{$t->IDContact}}">{{ $t->FamilyContact.' '.$t->NameContact.' '.$t->SoNameContact}}</a>
-          @elseif (isset($t->ClientName))
-          <a href="/client/{{$t->ClientId}}"> {{$t->ClientName}}</a>
+          <tr>
+            <th>@if (isset($t->name)) {{$t->name}} @endif</th>
+            <th class="<%= h.call_status.try(:callStatusColor)%>"><%= h.call_status.try(:callStatusName)%></th>
+            <th> <%= h.CallDate%></th>
+            <th><%= h.CallTime%> </th>
+
+            <th> <% if h.contact %>
+                  <a href="/contact/<%=h.contact.try(:IDContact)%>"><%= h.contact.try(:FamilyContact) %> <%= h.contact.try(:NameContact) %> <%= h.contact.try(:SoNameContact) %></a>
+              <% else%>
+                  <a href="/client/<%= h.client.try(:ClientId)%>"> <%= h.client.ClientName %></a>
+              <% end %>
+
+              </tr>
+      <% end%>
 
 
-          @endif
-
-      </tr>
-
-
-      @endforeach
 
       </tbody>
     </table>
@@ -117,25 +115,24 @@
       </tr>
       </thead>
       <tbody>
-      @foreach ($call as $t)
+     <% @all_history.each do |h|%>
+
       <tr>
         <th>@if (isset($t->name)) {{$t->name}} @endif</th>
-        <th class="@if (isset($t->callStatusColor)) {{$t->callStatusColor}} @endif">@if (isset($t->callStatusName)) {{$t->callStatusName}} @endif</th>
-        <th> {{$t->CallDate}}</th>
-        <th>{{$t->CallTime}} </th>
+        <th class="<%= h.call_status.try(:callStatusColor)%>"><%= h.call_status.try(:callStatusName)%></th>
+        <th> <%= h.CallDate%></th>
+        <th><%= h.CallTime%> </th>
 
-        <th> @if (isset($t->IDContact))
-          <a href="/contact/{{$t->IDContact}}">{{ $t->FamilyContact.' '.$t->NameContact.' '.$t->SoNameContact}}</a>
-          @elseif (isset($t->ClientName))
-          <a href="/client/{{$t->ClientId}}"> {{$t->ClientName}}</a>
-
-
-          @endif
+        <th> <% if h.contact %>
+              <a href="/contact/<%=h.contact.try(:IDContact)%>"><%= h.contact.try(:FamilyContact) %> <%= h.contact.try(:NameContact) %> <%= h.contact.try(:SoNameContact) %></a>
+         <% else%>
+          <a href="/client/<%= h.client.try(:ClientId)%>"> <%= h.client.ClientName %></a>
+          <% end %>
 
       </tr>
+          <% end%>
 
 
-      @endforeach
 
       </tbody>
     </table>

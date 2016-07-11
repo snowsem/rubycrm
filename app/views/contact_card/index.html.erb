@@ -35,12 +35,11 @@
         <div id="toggle" class="col-md-6">
           <ul class="list-unstyled">
             <% @contact.emails.each do |em|%>
-                <%= p em.AttrEmail%>
-            <% end %>
-            @foreach ($contact->emails as $t)
-            <li><span class="mail">{{ $t->AttrEmail }}</span> <span class="label label-default">{{ $t->DopInfo }}</span>  <span class="edit" value=/edit_email/{{$t->IDEmail}}" title="Редактировать e-mail"></span> <span value="/remove_email/{{$t->IDEmail}}" class="delete"></span></li>
 
-            @endforeach
+                <li><span class="mail"><%= p em.AttrEmail%></span> <span class="label label-default"><%= p em.DopInfo%></span>  <span class="edit" value=/edit_email/"></span> <span value="/remove_email/{{$t->IDEmail}}" class="delete"></span></li>
+
+          <% end %>
+
           </ul>
         </div>
       </div>
@@ -50,22 +49,10 @@
         <div id="toggle" class="col-md-6">
           <ul class="list-unstyled">
             <% @contact.links.each do |em|%>
-                <%= p em.AttrLink%>
-            <% end %>
-            @foreach ($contact->links as $t)
-            <?  $h='';
-                            if (strripos($t->AttrLink, '://') === false) {
-            $h = 'http://';
 
-            }  else {
+                <li><span class="link"><a href="<?=$h?>{{ $t->AttrLink }}" target="_blank"><%= p em.AttrLink%></a></span> <span class="label label-default">{{ $t->DopInfo }}</span>  <span class="edit" value="/edit_link/{{$t->IDLink}}" title="Редактировать ссылку"></span> <span value="/remove_link/{{$t->IDLink}}" class="delete"></span></li>
 
-            }
-
-            ?>
-
-            <li><span class="link"><a href="<?=$h?>{{ $t->AttrLink }}" target="_blank"> {{ $t->AttrLink }}</a></span> <span class="label label-default">{{ $t->DopInfo }}</span>  <span class="edit" value="/edit_link/{{$t->IDLink}}" title="Редактировать ссылку"></span> <span value="/remove_link/{{$t->IDLink}}" class="delete"></span></li>
-
-            @endforeach
+          <% end %>
           </ul>
         </div>
       </div>
@@ -128,16 +115,17 @@
           <div role="tabpanel" class="tab-pane active" id="call">
             <button class="btn btn-default btn-sm" id="addTrigger" type="submit" aria-label="" value="/call/add/contact/{{$contact->IDContact}}" title="Добавить">Добавить </button>
             <div class="margin-10px-top"></div>
-            @foreach ($contact->calls as $t)
+            <% @contact.calls.each do |call|%>
+
             <div class="row">
 
               <div class="col-md-12">
-                <h5 class="@if (isset($t->call_status->callStatusColor)) {{$t->call_status->callStatusColor}} @endif">@if (isset($t->call_status->callStatusName)) {{$t->call_status->callStatusName}} @endif: {{$t->CallDate}} в {{$t->CallTime}} -   @if (isset($t->user_name->name)) {{$t->user_name->name}} @endif  @if (isset($t->contact_name->IDContact)) <span class="label label-default"> {{ $t->contact_name->FamilyContact.' '.$t->contact_name->NameContact.' '.$t->contact_name->SoNameContact}} </span>  @endif   <span value="/call/edit/contact/{{$t->CallID}}/{{$contact->IDContact}}" title="Редактировать" class="edit "></span> </h5>
+                <h5 class="<%= call.call_status.try(:callStatusColor)%>"><%= call.call_status.try(:callStatusName)%> : <%= call.try(:CallDate)%> в <%= call.try(:CallTime)%> - usr<span class="label label-default"> <%= call.contact.try(:FamilyContact)%> <%= call.contact.try(:NameContact)%> <%= call.contact.try(:SoNameContact)%> </span> <span value="/call/edit/contact/{{$t->CallID}}/{{$contact->IDContact}}" title="Редактировать" class="edit "></span> </h5>
               </div>
 
             </div>
             <div class="separator"></div>
-            <div class="">{{$t->CallText}}</div>
+            <div class=""><%= call.try(:CallText)%></div>
 
             <div class="separator"></div>
 
@@ -145,7 +133,7 @@
 
 
 
-            @endforeach
+            <% end%>
 
           </div>
           <div role="tabpanel" class="tab-pane" id="profile">...2</div>

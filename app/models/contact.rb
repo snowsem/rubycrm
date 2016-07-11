@@ -7,4 +7,5 @@ class Contact < ApplicationRecord
   has_many :links,-> { where stat: 1 }, class_name: 'Link', primary_key: 'IDContact', foreign_key: 'IDEmplLink'
 
   has_one :client, class_name: 'Client', primary_key: 'IDContragent', foreign_key: 'ClientId'
+  has_many :calls, class_name: 'Call', primary_key: 'IDContact',foreign_key: 'CallContact'
 end

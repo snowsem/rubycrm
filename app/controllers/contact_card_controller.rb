@@ -1,5 +1,5 @@
 class ContactCardController < ApplicationController
   def index
-    @contact = Contact.find(params[:id])
+    @contact = Contact.includes(calls: [:call_status, :contact]).find(params[:id])
   end
 end

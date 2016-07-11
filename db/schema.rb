@@ -192,11 +192,6 @@ ActiveRecord::Schema.define(version: 20160704090704) do
     t.datetime "updated_at"
   end
 
-  create_table "migrations", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string  "migration", null: false
-    t.integer "batch",     null: false
-  end
-
   create_table "password_resets", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "email",                                           null: false
     t.string   "token",                                           null: false

@@ -45,13 +45,10 @@
         <ul class="list-unstyled">
           <% @client.emails.each do |em|%>
               <%= p em.AttrEmail%>
+              <li><span class="mail"><%= p em.AttrEmail%></span> <span class="label label-default"><%= p em.DopInfo%></span>
+                <span class="edit" value="/edit_email/{{$t->IDEmail}}" title="Редактировать e-mail"></span>
+                <span value="/remove_email/{{$t->IDEmail}}" class="delete"></span></li>
           <% end %>
-          @foreach ($client->emails as $t)
-          <li><span class="mail">{{ $t->AttrEmail }}</span> <span class="label label-default">{{ $t->DopInfo }}</span>
-            <span class="edit" value="/edit_email/{{$t->IDEmail}}" title="Редактировать e-mail"></span>
-            <span value="/remove_email/{{$t->IDEmail}}" class="delete"></span></li>
-
-          @endforeach
 
 
         </ul>
@@ -63,26 +60,16 @@
         <span class="plus-mid" value="/client/{{$client->ClientId}}/add_link" title="Добавить ссылку"></span></div>
       <div id="toggle" class="col-md-6">
         <ul class="list-unstyled">
-          @foreach ($client->links as $t)
-          <?  $h='';
-                            if (strripos($t->AttrLink, '://') === false) {
-          $h = 'http://';
 
-          } else {
 
-          }
-
-          ?>
           <% @client.links.each do |em|%>
-              <%= p em.AttrLink%>
+
+              <li><span class="link"><a href="<?=$h?>{{ $t->AttrLink }}" target="_blank"> <%= p em.AttrLink%></a></span>
+                <span class="label label-default"><%= p em.DopInfo%></span>
+                <span class="edit" value="/edit_link/{{$t->IDLink}}" title="Редактировать ссылку"></span>
+                <span value="/remove_link/{{$t->IDLink}}" class="delete"></span></li>
           <% end %>
 
-          <li><span class="link"><a href="<?=$h?>{{ $t->AttrLink }}" target="_blank"> {{ $t->AttrLink }}</a></span>
-            <span class="label label-default">{{ $t->DopInfo }}</span>
-            <span class="edit" value="/edit_link/{{$t->IDLink}}" title="Редактировать ссылку"></span>
-            <span value="/remove_link/{{$t->IDLink}}" class="delete"></span></li>
-
-          @endforeach
         </ul>
       </div>
     </div>
@@ -155,26 +142,29 @@
 
       <span class="plus-mid" value="/client/{{$client->ClientId}}/add_address" title="Добавить адрес"></span>
     </h4>
+
+
     <% @client.addresses.each do |ad|%>
-        <%= ad.try(:comment_address) %>
-        <%= ad.try(:index_address) %>
-        <%= ad.try(:sub_address) %>
-        <%= ad.try(:city_address) %>
-        <%= ad.try(:street_address) %>
-        <%= ad.try(:home_address) %>
-        <%= ad.try(:korp_address) %>
-        <%= ad.try(:kv_address) %>
-        <% end %>
-    @foreach ($client->addresses as $t)
 
 
     <div class="row">
-      <div class="col-md-6">{{$t->comment_address}}</div>
+      <div class="col-md-6"> <%= ad.try(:comment_address) %></div>
       <div class="col-md-6">
-        <p><span class="edit" value="/client/{{$t->id_address }}/edit_address" title="Редактировать название"></span>{{$t->index_address
-          }}, {{$t->sub_address}}, {{$t->city_address}}, {{$t->street_address}}, {{$t->home_address}},
-          {{$t->korp_address}}, {{$t->kv_address}} </p></div>
+        <p><span class="edit" value="/client/{{$t->id_address }}/edit_address" title="Редактировать название"></span>
+
+          <%= ad.try(:index_address) %>
+          <%= ad.try(:sub_address) %>
+          <%= ad.try(:city_address) %>
+          <%= ad.try(:street_address) %>
+          <%= ad.try(:home_address) %>
+          <%= ad.try(:korp_address) %>
+          <%= ad.try(:kv_address) %> </p>
+
+
+
+        </div>
     </div>
+    <% end %>
 
 
     <div class="separator"></div>

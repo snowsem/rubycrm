@@ -1,10 +1,7 @@
 <% provide(:title, 'Клиенты') %>
 <div class="row">
   <div class="col-md-2">
-
-
     <ul class="nav nav-pills nav-stacked">
-
       <li class="active">
         <a href="#">
           <span class="badge pull-right"><%= @clients.length %></span>
@@ -20,6 +17,7 @@
   </div>
   <div class="col-md-10">
 
+
     <div class="columned col-list">
       <% a = '' %>
       <% i = 0 %>
@@ -27,7 +25,7 @@
           <% i+=1 %>
           <% if a == c.ClientName[0] %>
               <div class="row">
-                <div class="col-md-1"><%= i %> </div>
+                <div class="col-md-1"> </div>
                 <div class="col-md-10">
                   <a href="/client/<%= c.ClientId %>" class="grey-list " id="222" href="#222#">
                     <%= c.ClientName %>
@@ -38,7 +36,7 @@
               <% a = c.ClientName[0] %>
               <p class="alpp"><span class="alp"><%= a %></span></p>
               <div class="row">
-                <div class="col-md-1"><%= i %> </div>
+                <div class="col-md-1"> </div>
                 <div class="col-md-10">
                   <a href="/client/<%= c.ClientId %>" class="grey-list " id="222" href="#222#"><%= c.ClientName %></a>
                 </div>
@@ -48,7 +46,47 @@
       <% end %>
 
     </div>
-    <!--  paginate @clients %> !-->
+    <%= paginate @clients %>
+
+    <!-- Modal -->
+    <div class = "modal false modal" id = "myModal" tabindex = "-1" role = "dialog"
+         aria-labelledby = "myModalLabel" aria-hidden = "true">
+
+      <div class = "modal-dialog">
+        <div class = "modal-content">
+
+          <div class = "modal-header">
+            <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+              ×
+            </button>
+
+            <h4 class = "modal-title" id = "myModalLabel">
+              This Modal title
+            </h4>
+          </div>
+
+          <div class = "modal-body">
+
+          </div>
+
+          <div class = "modal-footer">
+            <button type = "button" class = "btn btn-default" data-dismiss = "modal">
+              Закрыть
+            </button>
+
+            <button type = "button" class = "btn btn-primary" id="Submit">
+              Сохранить
+            </button>
+          </div>
+
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+
+    </div><!-- /.modal -->
+    <%= javascript_include_tag 'clients/clients' %>
+    <%= javascript_include_tag 'clients/jquery.form' %>
+
+
 
 
   </div>

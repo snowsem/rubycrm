@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   get '/clients(/page/:page)' => 'static#clients', :as => :static, :page => 1
 
   get 'client/:id' => 'client_card#index'
+  get 'clients/add' => 'static#new_client'
+  post 'clients/add' => 'static#create_client'
+
   get 'contact/:id' => 'contact_card#index'
+  get 'contacts/add' => 'static#new_contact'
   # Client Card action
 
   # Contact Card actions
