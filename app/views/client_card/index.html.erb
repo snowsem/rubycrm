@@ -224,7 +224,7 @@
         <div role="tabpanel" class="tab-pane active" id="call">
           <button class="btn btn-default btn-sm" id="addTrigger" type="submit" aria-label="" value="/call/add/client/{{$client->ClientId}}" title="Добавить">Добавить</button>
           <div class="margin-10px-top"></div>
-          <% @client.calls.each do |call|%>
+          <% @calls.each do |call|%>
               <%= %>
           <div class="row">
 
