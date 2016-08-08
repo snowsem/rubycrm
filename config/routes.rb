@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'contact_card/index'
 
   get 'client_card/index'

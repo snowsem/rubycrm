@@ -1,3 +1,4 @@
+
 <% provide(:title, @client.ClientName) %>
 <div class="card-name">
   <h3>
@@ -30,7 +31,7 @@
                 <span class="label label-default"><%= telephone.try(:DopName)%></span>
                 <span class="edit" value="/edit_telephone/{{$t->IDTelephone}}" title="Редактировать телефон"></span>
                 <span value="/remove_telephone/{{$t->IDTelephone}}" class="delete"></span></li>
-              <% end %>
+          <% end %>
 
 
 
@@ -147,23 +148,23 @@
     <% @client.addresses.each do |ad|%>
 
 
-    <div class="row">
-      <div class="col-md-6"> <%= ad.try(:comment_address) %></div>
-      <div class="col-md-6">
-        <p><span class="edit" value="/client/{{$t->id_address }}/edit_address" title="Редактировать название"></span>
+        <div class="row">
+          <div class="col-md-6"> <%= ad.try(:comment_address) %></div>
+          <div class="col-md-6">
+            <p><span class="edit" value="/client/{{$t->id_address }}/edit_address" title="Редактировать название"></span>
 
-          <%= ad.try(:index_address) %>
-          <%= ad.try(:sub_address) %>
-          <%= ad.try(:city_address) %>
-          <%= ad.try(:street_address) %>
-          <%= ad.try(:home_address) %>
-          <%= ad.try(:korp_address) %>
-          <%= ad.try(:kv_address) %> </p>
+              <%= ad.try(:index_address) %>
+              <%= ad.try(:sub_address) %>
+              <%= ad.try(:city_address) %>
+              <%= ad.try(:street_address) %>
+              <%= ad.try(:home_address) %>
+              <%= ad.try(:korp_address) %>
+              <%= ad.try(:kv_address) %> </p>
 
 
 
+          </div>
         </div>
-    </div>
     <% end %>
 
 
@@ -224,32 +225,32 @@
         <div role="tabpanel" class="tab-pane active" id="call">
           <button class="btn btn-default btn-sm" id="addTrigger" type="submit" aria-label="" value="/call/add/client/{{$client->ClientId}}" title="Добавить">Добавить</button>
           <div class="margin-10px-top"></div>
-          <% @client.calls.each do |call|%>
+          <% @calls.each do |call|%>
               <%= %>
-          <div class="row">
+              <div class="row">
 
-            <div class="col-md-12">
-              <h5 class="<%= call.call_status.try(:callStatusColor)%>">
-                <%= %>
-
-
-                <%= call.call_status.try(:callStatusName)%>: <%= call.CallDate%> в
-                <%= call.CallTime%> - usr @if
-
-                <span class="label label-default"> <%= call.contact.try(:FamilyContact)%> <%= call.contact.try(:NameContact)%> <%= call.contact.try(:SoNameContact)%> </span>
-
-                <span value="/call/edit/client/{{$t->CallID}}/{{$client->ClientId}}" title="Редактировать" class="edit "></span>
-              </h5>
-            </div>
-
-          </div>
-          <div class="separator"></div>
-          <div class=""><%= call.try(:CallText)%></div>
-
-          <div class="separator"></div>
+                <div class="col-md-12">
+                  <h5 class="<%= call.call_status.try(:callStatusColor)%>">
+                    <%= %>
 
 
-              <% end %>
+                    <%= call.call_status.try(:callStatusName)%>: <%= call.CallDate%> в
+                    <%= call.CallTime%> - usr @if
+
+                    <span class="label label-default"> <%= call.contact.try(:FamilyContact)%> <%= call.contact.try(:NameContact)%> <%= call.contact.try(:SoNameContact)%> </span>
+
+                    <span value="/call/edit/client/{{$t->CallID}}/{{$client->ClientId}}" title="Редактировать" class="edit "></span>
+                  </h5>
+                </div>
+
+              </div>
+              <div class="separator"></div>
+              <div class=""><%= call.try(:CallText)%></div>
+
+              <div class="separator"></div>
+
+
+          <% end %>
 
 
         </div>
@@ -281,7 +282,7 @@
 
 
 
-                <% end %>
+            <% end %>
             </tbody>
           </table>
         </div>
@@ -303,13 +304,13 @@
             <% @client.purchases.each do |p|%>
 
 
-            <tr style="cursor: pointer" id="addTrigger" value="/purchase/edit/{{$t->purchaseId}}" title="Редактировать {{$t->purchaseName}}">
-              <td><%= p.try(:purchaseName)%></td>
-              <td><%= p.try(:purchaseDateStart)%></td>
-              <td><span class="label <%= p.purchase_status.try(:psColor)%>"><%= p.purchase_status.try(:psName)%></span></td>
+                <tr style="cursor: pointer" id="addTrigger" value="/purchase/edit/{{$t->purchaseId}}" title="Редактировать {{$t->purchaseName}}">
+                  <td><%= p.try(:purchaseName)%></td>
+                  <td><%= p.try(:purchaseDateStart)%></td>
+                  <td><span class="label <%= p.purchase_status.try(:psColor)%>"><%= p.purchase_status.try(:psName)%></span></td>
 
 
-            </tr>
+                </tr>
 
             <% end %>
 
@@ -391,4 +392,6 @@
 
 </div><!-- /.modal -->
 
-
+<% content_for(:head) do %>
+    <%= javascript_include_tag 'clients/clients' %>
+<% end %>
