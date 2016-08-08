@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: laracrm
+  database: rcrm
   username: root
   password: qwe123
