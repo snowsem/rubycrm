@@ -192,6 +192,11 @@ ActiveRecord::Schema.define(version: 20160704090704) do
     t.datetime "updated_at"
   end
 
+  create_table "migrations", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string  "migration", null: false
+    t.integer "batch",     null: false
+  end
+
   create_table "password_resets", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string   "email",                                           null: false
     t.string   "token",                                           null: false
@@ -268,6 +273,18 @@ ActiveRecord::Schema.define(version: 20160704090704) do
     t.string   "username"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "users1", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+    t.string   "name",                                                            null: false
+    t.string   "login",                                                           null: false
+    t.string   "email",                                                           null: false
+    t.string   "password",       limit: 60,                                       null: false
+    t.string   "remember_token", limit: 100
+    t.datetime "created_at",                 default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "updated_at",                                                      null: false
+    t.index ["email"], name: "users_email_unique", unique: true, using: :btree
+    t.index ["login"], name: "users_login_unique", unique: true, using: :btree
   end
 
 end
