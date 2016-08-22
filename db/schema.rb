@@ -12,6 +12,20 @@
 
 ActiveRecord::Schema.define(version: 20160818194722) do
 
+  create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "namespace"
+    t.text     "body",          limit: 65535
+    t.string   "resource_id",                 null: false
+    t.string   "resource_type",               null: false
+    t.integer  "author_id"
+    t.string   "author_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+  end
+
   create_table "address", primary_key: "id_address", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.string   "index_address",   limit: 45
     t.string   "sub_address",     limit: 145
@@ -24,6 +38,23 @@ ActiveRecord::Schema.define(version: 20160818194722) do
     t.datetime "updated_at"
     t.datetime "created_at"
     t.string   "comment_address", limit: 145
+  end
+
+  create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
   end
 
   create_table "auth_group", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -124,7 +155,7 @@ ActiveRecord::Schema.define(version: 20160818194722) do
     t.text     "ClientName",            limit: 65535
     t.integer  "ClientType",                          default: 0
     t.integer  "ClientProperty",                      default: 0
-    t.string   "ClientInn",             limit: 18,    default: "0"
+    t.integer  "ClientInn",                           default: 0
     t.integer  "ClientKpp",                           default: 0
     t.integer  "ClientOkpo",                          default: 0
     t.integer  "ClientBik",                           default: 0
@@ -173,10 +204,11 @@ ActiveRecord::Schema.define(version: 20160818194722) do
   end
 
   create_table "contacts", primary_key: "IDContact", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+    t.integer  "IDContragent"
     t.string   "FamilyContact",       limit: 100
     t.string   "NameContact",         limit: 100
     t.string   "SoNameContact",       limit: 100
-    t.integer  "SexContact"
+    t.integer  "SexcontactsContact"
     t.integer  "DirectionContact"
     t.text     "PostContact",         limit: 65535
     t.string   "TelephoneContact"
@@ -198,6 +230,7 @@ ActiveRecord::Schema.define(version: 20160818194722) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["FamilyContact"], name: "FamilyContact", type: :fulltext
+    t.index ["IDContragent"], name: "IDContragent", using: :btree
     t.index ["NameContact"], name: "NameContact", type: :fulltext
     t.index ["SoNameContact"], name: "SoNameContact", type: :fulltext
   end
@@ -257,17 +290,6 @@ ActiveRecord::Schema.define(version: 20160818194722) do
     t.string   "fileSize",         limit: 45
   end
 
-  create_table "jobs", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "queue",                           null: false
-    t.text    "payload",      limit: 4294967295, null: false
-    t.integer "attempts",     limit: 1,          null: false, unsigned: true
-    t.integer "reserved",     limit: 1,          null: false, unsigned: true
-    t.integer "reserved_at",                                  unsigned: true
-    t.integer "available_at",                    null: false, unsigned: true
-    t.integer "created_at",                      null: false, unsigned: true
-    t.index ["queue", "reserved", "reserved_at"], name: "jobs_queue_reserved_reserved_at_index", using: :btree
-  end
-
   create_table "link", primary_key: "IDLink", unsigned: true, force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.integer  "IDEmplLink"
     t.string   "AttrLink"
@@ -276,6 +298,15 @@ ActiveRecord::Schema.define(version: 20160818194722) do
     t.integer  "stat"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "main_post", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title",          limit: 200,                      null: false
+    t.text     "text",           limit: 4294967295,               null: false
+    t.datetime "created_date",                      precision: 6, null: false
+    t.datetime "published_date",                    precision: 6
+    t.integer  "author_id",                                       null: false
+    t.index ["author_id"], name: "main_post_author_id_b6fbb16a_fk_auth_user_id", using: :btree
   end
 
   create_table "migrations", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -361,18 +392,6 @@ ActiveRecord::Schema.define(version: 20160818194722) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "workplace", primary_key: "wpId", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
-    t.string   "wpContactId",   limit: 45
-    t.string   "wpClientId",    limit: 45
-    t.date     "wpDateStart"
-    t.date     "wpDateEnd"
-    t.string   "wpContactPost", limit: 250
-    t.text     "wpContactText", limit: 65535
-    t.string   "wpCheck",       limit: 45
-    t.datetime "updated_at"
-    t.datetime "created_at"
-  end
-
   create_table "workplaces", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -387,4 +406,5 @@ ActiveRecord::Schema.define(version: 20160818194722) do
   add_foreign_key "auth_user_user_permissions", "auth_user", column: "user_id", name: "auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id"
   add_foreign_key "django_admin_log", "auth_user", column: "user_id", name: "django_admin_log_user_id_c564eba6_fk_auth_user_id"
   add_foreign_key "django_admin_log", "django_content_type", column: "content_type_id", name: "django_admin__content_type_id_c4bce8eb_fk_django_content_type_id"
+  add_foreign_key "main_post", "auth_user", column: "author_id", name: "main_post_author_id_b6fbb16a_fk_auth_user_id"
 end
